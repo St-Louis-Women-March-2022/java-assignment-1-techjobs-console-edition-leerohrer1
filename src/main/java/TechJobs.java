@@ -1,6 +1,6 @@
+import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -62,9 +62,9 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    printJobs(JobData.findByValue(searchTerm));
+                    printJobs(JobData.findByValue(searchTerm.toLowerCase()));
                 } else {
-                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm.toLowerCase()));
                 }
             }
         }
@@ -119,7 +119,18 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-
-        System.out.println("printJobs is not implemented yet");
+        if (someJobs.isEmpty()) {
+            System.out.println("No Results");
+        } else {
+            for (HashMap<String, String> job : someJobs) {
+                System.out.println("\n*****\n" +
+                        "position type: " + job.get("position type") + "\n" +
+                        "name: " + job.get("name") + "\n" +
+                        "employer: " + job.get("employer") + "\n" +
+                        "location: " + job.get("location") + "\n" +
+                        "core competency: " + job.get("core competency") + "\n" +
+                        "*****");
+            }
+        }
     }
 }
